@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encriptador Alura</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 class="titulos-principales">Tu mensaje secreto 💌</h1>
+    </header>
+    <p class="mensaje-bienvenida">¡Bienvenido! Este programa a continuación te permite crear un mensaje secreto a partir de una encriptación y viceversa. Recuerda solo usar minúsculas sin acentos. ¡Disfrútalo! :).</p>
+    <form name="programa" class="programa">     
+        <textarea cols="70" rows="10" type="text" class="input-padron" placeholder="Ingrese el texto aquí" name="palabra" required></textarea>
+        <div class="botones">
+            <button onclick="encriptador()" class="boton">Encriptar</button>
+            <button onclick="desencriptador()" class="boton">Desencriptar</button>
+        </div>
+        <div id="imageninicial">
+            <p>Ningún mensaje ha sido encontrado</p>
+            <img src="Muñeco.png">        
+        </div>
+        <textarea cols="70" rows="10" readonly="readonly" id="resultado" style="display: none;" class="resultado"></textarea>
+    </form>
+    <footer>
+        <p>Desafío ONE - Grupo 3 - Ángela Suaza - 2022</p>
+    </footer>
+
+    <script>
+        function intercambiarContenido() {
+            var x = document.getElementById('imageninicial');
+            if (resultado.value=='none') {
+                x.style.display = 'block';
+            } 
+            else {
+                x.style.display = 'none';
+            }
+        }
+        function encriptador(){
+            var palabra=document.programa.palabra.value
+            var palabranueva=""
+            var resultado=document.getElementById('resultado')
+            for(var posicion=0;posicion<palabra.length;posicion++){
+                if ((palabra[posicion]).charCodeAt()<97 || (palabra[posicion]).charCodeAt()>122){
+                    palabranueva="Entrada inválida 🥴"
+                    break
+                }
+                else if (palabra[posicion]=="a"){
+                    palabranueva+="ai"
+                }
+                else if (palabra[posicion]=="e"){
+                    palabranueva+="enter"
+                }
+                else if (palabra[posicion]=="i"){
+                    palabranueva+="imes"
+                }
+                else if(palabra[posicion]=="o"){
+                    palabranueva+="ober"
+                }
+                else if(palabra[posicion]=="u"){
+                    palabranueva+="ufat"
+                }
+                else{
+                    palabranueva+=palabra[posicion]
+                }
+            }
+            intercambiarContenido()
+            resultado.value=palabranueva
+            resultado.style.display='flex'
+        }
+        function desencriptador(){
+            var palabra=document.programa.palabra.value
+            var palabranueva=""
+            var resultado=document.getElementById('resultado')
+            var posicion=0
+            while(posicion<palabra.length){
+                if ((palabra[posicion]).charCodeAt()<97 || (palabra[posicion]).charCodeAt()>122){
+                    palabranueva="Entrada inválida"
+                    break
+                }
+                else if (palabra[posicion]=="a" && palabra[posicion+1]=="i"){
+                    palabranueva+="a"
+                    posicion+=2
+                }
+                else if (palabra[posicion]=="e" && palabra[posicion+1]=="n" && palabra[posicion+2]=="t" 
+                && palabra[posicion+3]=="e" && palabra[posicion+4]=="r"){
+                    palabranueva+="e"
+                    posicion+=5
+                }
+                else if (palabra[posicion]=="i" && palabra[posicion+1]=="m" && palabra[posicion+2]=="e" 
+                && palabra[posicion+3]=="s"){
+                    palabranueva+="i"
+                    posicion+=4
+                }
+                else if(palabra[posicion]=="o" && palabra[posicion+1]=="b" && palabra[posicion+2]=="e" 
+                && palabra[posicion+3]=="r"){
+                    palabranueva+="o"
+                    posicion+=4
+                }
+                else if(palabra[posicion]=="u" && palabra[posicion+1]=="f" && palabra[posicion+2]=="a" 
+                && palabra[posicion+3]=="t"){
+                    palabranueva+="u"
+                    posicion+=4
+                }
+                else{
+                    palabranueva+=palabra[posicion]
+                    posicion++
+                }
+            }
+            intercambiarContenido()
+            resultado.value=palabranueva
+            resultado.style.display='flex'
+        }
+    </script>
+</body>
+</html>
