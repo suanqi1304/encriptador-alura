@@ -16,7 +16,7 @@
         <h1 class="titulos-principales">Tu mensaje secreto 💌</h1>
     </header>
     <p class="mensaje-bienvenida">¡Bienvenido! Este programa a continuación te permite crear un mensaje secreto a partir de una encriptación y viceversa. Recuerda solo usar minúsculas sin acentos. ¡Disfrútalo! :).</p>
-    <form name="programa" class="programa">     
+    <form name="programa" class="programa" onsubmit="event.preventDefault()">     
         <textarea cols="70" rows="10" type="text" class="input-padron" placeholder="Ingrese el texto aquí" name="palabra" required></textarea>
         <div class="botones">
             <button onclick="encriptador()" class="boton">Encriptar</button>
@@ -26,13 +26,23 @@
             <p>Ningún mensaje ha sido encontrado</p>
             <img src="Muñeco.png">        
         </div>
-        <textarea cols="70" rows="10" readonly="readonly" id="resultado" style="display: none;" class="resultado"></textarea>
+        <div>
+            <textarea cols="70" rows="10" readonly="readonly" id="resultado" style="display: none;" class="resultado"></textarea>
+            <button class="boton" style="display:none;" id="copiar">Copiar</button>
+        </div>
     </form>
     <footer>
         <p>Desafío ONE - Grupo 3 - Ángela Suaza - 2022</p>
     </footer>
 
     <script>
+        function copy() {
+            let copyText = document.querySelector("#resultado");
+            copyText.select()
+            document.execCommand("copy");
+        }
+        document.querySelector("#copiar").addEventListener("click", copy);
+
         function intercambiarContenido() {
             var x = document.getElementById('imageninicial');
             if (resultado.value=='none') {
@@ -46,6 +56,7 @@
             var palabra=document.programa.palabra.value
             var palabranueva=""
             var resultado=document.getElementById('resultado')
+            let boton=document.getElementById('copiar')
             for(var posicion=0;posicion<palabra.length;posicion++){
                 if ((palabra[posicion]).charCodeAt()<97 || (palabra[posicion]).charCodeAt()>122){
                     palabranueva="Entrada inválida 🥴"
@@ -73,6 +84,8 @@
             intercambiarContenido()
             resultado.value=palabranueva
             resultado.style.display='flex'
+            boton.style.display='flex'
+            boton.style.margin='2em auto'
         }
         function desencriptador(){
             var palabra=document.programa.palabra.value
